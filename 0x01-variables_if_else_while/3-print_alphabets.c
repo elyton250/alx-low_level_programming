@@ -11,7 +11,7 @@ int main(void)
 	int l = 97;
 	int u = 65;
 
-	while (l = 122)
+	while (l <=  122)
 	{
 		putchar(l);
 		l++;
@@ -22,5 +22,5 @@ int main(void)
 		u++;
 	}
 	putchar('\n');
-	retutn (0);
+	return (0);
 }
