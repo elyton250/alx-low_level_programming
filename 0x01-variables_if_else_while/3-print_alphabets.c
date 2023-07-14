@@ -1,26 +1,29 @@
 #include <stdio.h>
+
 /**
-  *main Entry point
-  *
-  *Description: uppsr case and lower case
-  *
-  *Return: 0 (sucess)
+ * main - Entry point
+ *
+ * Description: Prints both lowercase and uppercase letters of the alphabet
+ *
+ * Return: 0 (success)
  */
 int main(void)
 {
-	int l = 97;
-	int u = 65;
+	int lowercase = 97;
+	int uppercase = 65;
 
-	while (l <=  122)
+	while (lowercase <= 122)
 	{
-		putchar(l);
-		l++;
+		putchar(lowercase);
+		lowercase++;
 	}
-	while (u <= 90)
+
+	while (uppercase <= 90)
 	{
-		putchar(u);
-		u++;
+		putchar(uppercase);
+		uppercase++;
 	}
+
 	putchar('\n');
 	return (0);
 }
