@@ -1,18 +1,16 @@
 #include "main.h"
 /**
-  *
-  *
-  *
-  *
-  *
-  */
-int add(int, int)
+ * add - adds two integers and returnsthe result
+ *
+ * @x: number being added
+ *
+ * @y: number being added
+ *
+ * Return: Always 0.
+ *
+ */
+int add(int x, int y)
 {
-	int a;
-	int b;
-	int res;
-	res = a + b;
-	_putchar("%d, res");
-	_putchar("\n");
-	return (res);
+	return (x + y);
 }
+
