@@ -3,12 +3,12 @@
 #include "main.h"
 
 /**
-  *_calloc - allocates memory 
-  *@i: used to intialise to 0
-  *@ar: is the array that holds the memory
-  *
-  *Return: the pointer to the array
-  */
+ *_calloc - allocates memory
+ *@size: size of bytes
+ *@nmemb: the number of elements
+ *
+ *Return: the pointer to the array on successs
+ */
 
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
