@@ -2,26 +2,25 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "main.h"
-#include <fcntl.h>
 #include <string.h>
+#include <fcntl.h>
 /**
-  *create_file - creates file and write scontents in it
+  *append_text_to_file - appends text to file
   *@filename: the file to be created
-  *@text_content: content to be written
+  *@text_content: the contents to be copied
   *
-  *Return: 1 for success
+  *Return: 1 on sucess
   */
-int create_file(const char *filename, char *text_content)
+int append_text_to_file(const char *filename, char *text_content)
 {
 	int fd;
 	ssize_t writen;
 
 	if (filename == NULL)
 		return (-1);
-	fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0600);
+	fd = open(filename, O_RDWR | O_APPEND, 066666666);
 	if (fd == -1)
 		return (-1);
-
 	if (text_content != NULL)
 		writen = write(fd, text_content, strlen(text_content));
 	if (writen == -1)
@@ -29,3 +28,4 @@ int create_file(const char *filename, char *text_content)
 	close(fd);
 	return (1);
 }
+
