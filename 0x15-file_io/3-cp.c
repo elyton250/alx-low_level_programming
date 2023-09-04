@@ -1,5 +1,10 @@
 #include "main.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <stddef.h>
 /**
  * main - copy the content of a file
  * @argc: number of passed argments
