@@ -11,46 +11,45 @@
  * @argv: pointer
  * Return: the total count of letters successfully read and output
  */
-
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	int file_1, file_2;
-	int n;
-	char buffer[1024];
+	int fd_r, fd_w, r, a, b;
+	char buf[BUFSIZ];
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "usage: cp file_from file_to\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	file_1 = open(argv[1], O_RDONLY);
-	if (file_1 == -1)
+	fd_r = open(argv[1], O_RDONLY);
+	if (fd_r < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: cant read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
-	file_2 = open(argv[2], O_TRUNC | O_WRONLY | O_CREAT, 0664);
-	while ((n = read(file_1, buffer, 1024)) > 0)
+	fd_w = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	while ((r = read(fd_r, buf, BUFSIZ)) > 0)
 	{
-		if (write(file_2, buffer, n) != n || file_2 == -1)
+		if (fd_w < 0 || write(fd_w, buf, r) != r)
 		{
-			dprintf(STDERR_FILENO, "Error: can't write to %s\n", argv[2]);
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			close(fd_r);
 			exit(99);
 		}
 	}
-	if (n == -1)
+	if (r < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: can't read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
-	if (close(file_1) < 0)
+	a = close(fd_r);
+	b = close(fd_w);
+	if (a < 0 || b < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: can't close fd %d\n", file_1);
-		exit(100);
-	}
-	if (close(file_2) < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: can't close fd %d\n", file_2);
+		if (a < 0)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_r);
+		if (b < 0)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_w);
 		exit(100);
 	}
 	return (0);
