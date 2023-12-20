@@ -1,0 +1,11 @@
+# use variables
+
+SRC = *.c
+CC = gcc
+
+all: school 
+school: $(SRC) m.h
+	$(CC) m.h -o school
+
+clean:
+	rm school
