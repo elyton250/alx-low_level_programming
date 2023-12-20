@@ -1,0 +1,17 @@
+# Makefile for building the 'school' executable
+
+DEP = main.o school.o m.h
+SRC = *.c
+
+# Default target
+all: school
+
+school: $(DEP)
+	gcc $^ -o $@
+
+%.o: %.c
+	cc -c $< -o $@
+
+clean:
+	rm -f *.o school
+
