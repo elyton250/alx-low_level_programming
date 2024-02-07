@@ -1,47 +1,61 @@
 #include "search_algos.h"
 
 /**
- * binary_search - searches for a value in a sorted array using binary search
- * @array: the array to be searched
- * @size: the size of the array
- * @value: the value to search
- * Return: the index if the value is found, otherwise -1
+ * recursive_search - searches for a value in an array of
+ * integers using the Binary search algorithm
+ *
+ *
+ * @array: input array
+ * @size: size of the array
+ * @value: value to search in
+ * Return: index of the number
  */
-
-int binary_search(int *array, size_t size, int value)
+int recursive_search(int *array, size_t size, int value)
 {
-	int *left_array, *right_array;
-	int mid, i;
-	size_t j;
+	size_t half = size / 2;
+	size_t i;
 
 	if (array == NULL || size == 0)
 		return (-1);
-	printf("Searching in array: ");
-	for (j = 0; j < size; j++)
-	{
-		printf("%d", array[j]);
-		if (j < size - 1)
-			printf(", ");
-	}
+
+	printf("Searching in array");
+
+	for (i = 0; i < size; i++)
+		printf("%s %d", (i == 0) ? ":" : ",", array[i]);
+
 	printf("\n");
 
-	mid = size / 2;
+	if (half && size % 2 == 0)
+		half--;
 
-	if (array[mid] == value)
-		return (mid);
+	if (value == array[half])
+		return ((int)half);
 
-	if (array[mid] > value)
-	{
-		left_array = array;
-		return (binary_search(left_array, mid, value));
-	}
+	if (value < array[half])
+		return (recursive_search(array, half, value));
 
-	if (array[mid] < value)
-	{
-		right_array = array + mid + 1;
-		i = binary_search(right_array, size - mid - 1, value);
-		return (i == -1 ? -1 : mid + 1 + i);
-	}
+	half++;
 
-	return (-1);
+	return (recursive_search(array + half, size - half, value) + half);
+}
+
+/**
+ * binary_search - calls to binary_search to return
+ * the index of the number
+ *
+ * @array: input array
+ * @size: size of the array
+ * @value: value to search in
+ * Return: index of the number
+ */
+int binary_search(int *array, size_t size, int value)
+{
+	int index;
+
+	index = recursive_search(array, size, value);
+
+	if (index >= 0 && array[index] != value)
+		return (-1);
+
+	return (index);
 }
